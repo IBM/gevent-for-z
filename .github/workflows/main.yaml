@@ -23,14 +23,14 @@ jobs:
           sudo apt-get install -y curl jq
           
           GRPC_LATEST=$(curl -s https://pypi.org/pypi/gevent/json | jq -r '.info.version')
-          echo '::set-output name=LATEST_RELEASE::'$GEVENT_LATEST
+          echo "LATEST_RELEASE=" >> "$GITHUB_OUTPUT"$GEVENT_LATEST
           echo "Latest Grpc version: $GEVENT_LATEST"
           
       - name: Get current gevent release for s390x
         id: current
         run: |
           GRPC_CURRENT=$(curl -s https://api.github.com/repos/IBM/gevent-for-Z/releases/latest | grep tag_name | cut -d '"' -f4)
-          echo '::set-output name=CURRENT_RELEASE::'$GEVENT_CURRENT
+          echo "CURRENT_RELEASE=" >> "$GITHUB_OUTPUT"$GEVENT_CURRENT
           echo "Current Grpc version on IBMZ: $GEVENT_CURRENT"
           
   build-new-release:
